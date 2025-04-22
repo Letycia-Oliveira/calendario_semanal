@@ -1,0 +1,40 @@
+from colorama import Fore, Style, init
+init(autoreset=True)
+
+dias_da_semana = [
+    "Segunda-feira", "Terça-feira", "Quarta-feira",
+    "Quinta-feira", "Sexta-feira", "Sábado", "Domingo"
+]
+
+
+calendario = {}
+
+print(Fore.CYAN + Style.BRIGHT + "Gerador de Calendário Semanal Personalizado")
+print(Fore.WHITE + "Digite suas tarefas para cada dia da semana.")
+print("Você pode adicionar várias tarefas por dia.")
+print(Fore.YELLOW + "Pressione Enter sem digitar nada para pular ou finalizar um dia.\n")
+
+
+for dia in dias_da_semana:
+    tarefas = []
+    print(Fore.GREEN + f"\n {dia}:")
+    while True:
+        tarefa = input(Fore.WHITE + "  - Adicione uma tarefa (ou pressione Enter para continuar): ")
+        if tarefa.strip() == "":
+            break
+        tarefas.append(tarefa)
+    if tarefas:
+        calendario[dia] = tarefas
+
+
+nome_arquivo = "calendario_semanal.txt"
+
+with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+    arquivo.write("CALENDÁRIO SEMANAL PERSONALIZADO\n\n")
+    for dia, tarefas in calendario.items():
+        arquivo.write(f"{dia}:\n")
+        for tarefa in tarefas:
+            arquivo.write(f"  - {tarefa}\n")
+        arquivo.write("\n")
+
+print(Fore.GREEN + Style.BRIGHT + f"\nCalendário gerado com sucesso no arquivo: {nome_arquivo}")
